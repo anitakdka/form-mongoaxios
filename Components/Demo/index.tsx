@@ -8,28 +8,30 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (formData: any) => console.log(formData);
-
-  function user() {
+  const onSubmit = (formData: any) => {
     const data = [
       {
-        username: "username",
-        email: "email",
-        password: "password",
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
       },
     ];
-    axios.post("http://localhost:3000/api/login", data, {
+    axios
+      .post("http://localhost:3001/api/usercreate", data, {
         headers: {
           "Content-Type": "application/json",
         },
       })
+//     axios.get('http://localhost:3000/api/userfetch').then(response => {
+//     console.log(response.data);
+// });
       .then((response) => {
         console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   return (
     <>
@@ -68,13 +70,8 @@ export default function Register() {
         {errors.c_password && <span>This field is required</span>}
         <br />
         <br />
-        <button onClick={() => user()} type="submit">
-          Register
-        </button>
+        <button type="submit">Register</button>
       </form>
     </>
   );
 }
-
-
-
